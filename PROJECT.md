@@ -30,10 +30,10 @@
 ## 常用指令
 
 ```sh
-npm install        # 安裝依賴
-npm run build      # 編譯 TypeScript
-npm run dev        # 開發模式（ts-node / tsx watch）
-npm start          # 啟動 MCP Server（編譯後）
+pnpm install        # 安裝依賴
+pnpm run build      # 編譯 TypeScript
+pnpm run dev        # 開發模式（ts-node / tsx watch）
+pnpm start          # 啟動 MCP Server（編譯後）
 ```
 
 ## 與 my-portal 的關係
