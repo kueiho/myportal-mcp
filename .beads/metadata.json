@@ -1,0 +1,8 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "my_portal_mcp",
+  "project_id": "82fb8440-f04f-4124-9b70-9755bb85d0f4",
+  "global_dolt_database": "beads_global"
+}
