@@ -135,7 +135,7 @@ export const handleCreateInvoice = async (args: unknown) => {
       accountName: '現金',
       toAccountId: null,
       toAccountName: null,
-      date: input.invoiceDate,
+      date: `${input.invoiceDate.slice(0, 4)}-${input.invoiceDate.slice(4, 6)}-${input.invoiceDate.slice(6, 8)}`,
       note,
       imageUrl: null,
       sourceType: 'E_INVOICE',
