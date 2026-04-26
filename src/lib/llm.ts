@@ -61,19 +61,27 @@ async function promptForText<T>(
 ): Promise<LlmResult<T>> {
   const client = createClient()
 
-  const message = await client.messages.create({
+  const rawResponse = await client.messages.create({
     model: 'MiniMax-M2.7',
-    max_tokens: 1024,
+    max_tokens: 4096,
+    ...({ thinking: { type: 'disabled' } } as Record<string, unknown>),
     messages: [
       { role: 'user', content: `${prompt}\n\n以下是文件內容：\n${system}` },
     ],
-  })
+  } as Parameters<typeof client.messages.create>[0])
 
-  const raw = message.content.find((b) => b.type === 'text')
-  const text = raw?.type === 'text' ? raw.text.trim() : ''
+  const message = rawResponse as Anthropic.Message
+
+  const textBlock = message.content.find((b: Anthropic.ContentBlock) => b.type === 'text')
+  const thinkingBlock = message.content.find((b: Anthropic.ContentBlock) => b.type === 'thinking')
+
+  // 優先 text；fallback 到 thinking（M2.7 偶爾把結論塞 thinking 末尾）
+  const text = textBlock?.type === 'text' && textBlock.text.trim()
+    ? textBlock.text.trim()
+    : thinkingBlock?.type === 'thinking' ? thinkingBlock.thinking.trim() : ''
 
   if (!text) {
-    return { success: false, error: 'LLM 回覆為空' }
+    return { success: false, error: 'LLM 回覆為空（stop_reason=' + message.stop_reason + '）' }
   }
 
   // 夾帶 markdown code block 的情况：取出第一個 {...} 區塊
