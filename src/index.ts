@@ -10,14 +10,7 @@ import { zodToJsonSchema } from 'zod-to-json-schema'
 
 // ── Tool imports ──
 import { CREATE_INVOICE_TOOL, handleCreateInvoice } from './tools/invoiceTools.js'
-import {
-  LIST_DOCUMENTS_TOOL, handleListDocuments,
-  GET_DOCUMENT_TOOL, handleGetDocument,
-  CREATE_DOCUMENT_TOOL, handleCreateDocument,
-  UPDATE_DOCUMENT_TOOL, handleUpdateDocument,
-  DELETE_DOCUMENT_TOOL, handleDeleteDocument,
-  DELETE_DOCUMENTS_TOOL, handleDeleteDocuments,
-} from './tools/mdDocumentTools.js'
+
 import {
   LIST_BANK_SETTINGS_TOOL, handleListBankSettings,
   CREATE_BANK_SETTING_TOOL, handleCreateBankSetting,
@@ -51,13 +44,6 @@ const server = new Server(
 // ===== Tool 註冊表 =====
 const TOOLS = [
   CREATE_INVOICE_TOOL,
-  // MDDocument
-  LIST_DOCUMENTS_TOOL,
-  GET_DOCUMENT_TOOL,
-  CREATE_DOCUMENT_TOOL,
-  UPDATE_DOCUMENT_TOOL,
-  DELETE_DOCUMENT_TOOL,
-  DELETE_DOCUMENTS_TOOL,
   // Bill
   LIST_BANK_SETTINGS_TOOL,
   CREATE_BANK_SETTING_TOOL,
@@ -78,13 +64,6 @@ type ToolResult = { content: { type: 'text'; text: string }[] }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const HANDLERS: Record<string, (args: any) => Promise<ToolResult>> = {
   create_invoice: handleCreateInvoice,
-  // MDDocument
-  list_documents: handleListDocuments,
-  get_document: handleGetDocument,
-  create_document: handleCreateDocument,
-  update_document: handleUpdateDocument,
-  delete_document: handleDeleteDocument,
-  delete_documents: handleDeleteDocuments,
   // Bill
   list_bank_settings: handleListBankSettings,
   create_bank_setting: handleCreateBankSetting,

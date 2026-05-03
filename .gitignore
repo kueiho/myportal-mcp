@@ -31,3 +31,4 @@ Thumbs.db
 .beads/dolt/
 .beads/embeddeddolt/
 *.bin
+.gitnexus
