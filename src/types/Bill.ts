@@ -17,8 +17,8 @@ export interface BankSetting {
 export interface Bill {
   id: string
   userId: string
-  bankId: string
-  bankName: string
+  categoryId: string
+  categoryName: string
   totalAmount: number
   dueDate: string // YYYY-MM-DD
   isPaid: boolean

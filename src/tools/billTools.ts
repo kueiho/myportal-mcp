@@ -38,8 +38,8 @@ const listBillsSchema = z.object({
 })
 
 const createBillSchema = z.object({
-  bankId: z.string().min(1, '銀行設定 ID 不可為空'),
-  bankName: z.string().min(1, '銀行名稱不可為空'),
+  categoryId: z.string().min(1, '帳單類型 ID 不可為空'),
+  categoryName: z.string().min(1, '帳單類型名稱不可為空'),
   totalAmount: z.number().min(0, '金額需大於或等於 0'),
   dueDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, '日期格式需為 YYYY-MM-DD'),
   isPaid: z.boolean().default(false),
@@ -49,8 +49,8 @@ const createBillSchema = z.object({
 
 const updateBillSchema = z.object({
   id: z.string().min(1, '帳單 ID 不可為空'),
-  bankId: z.string().min(1).optional(),
-  bankName: z.string().min(1).optional(),
+  categoryId: z.string().min(1).optional(),
+  categoryName: z.string().min(1).optional(),
   totalAmount: z.number().min(0).optional(),
   dueDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   isPaid: z.boolean().optional(),
