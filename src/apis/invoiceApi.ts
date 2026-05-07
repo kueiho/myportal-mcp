@@ -3,13 +3,14 @@ import type { CreateInvoiceInput, Invoice } from '../types/Invoice.js'
 
 const db = () => getFirestore()
 
+const invoicesCol = (userId: string) =>
+  db().collection('users').doc(userId).collection('invoices')
+
 export const getInvoiceByNo = async (
   userId: string,
   invoiceNo: string
 ): Promise<Invoice | null> => {
-  const snapshot = await db()
-    .collection('invoices')
-    .where('userId', '==', userId)
+  const snapshot = await invoicesCol(userId)
     .where('invoiceNo', '==', invoiceNo)
     .limit(1)
     .get()
@@ -29,13 +30,10 @@ export const createInvoice = async (
   userId: string,
   input: CreateInvoiceInput
 ): Promise<string> => {
-  const docRef = await db()
-    .collection('invoices')
-    .add({
-      ...input,
-      userId,
-      createdAt: FieldValue.serverTimestamp(),
-    })
+  const docRef = await invoicesCol(userId).add({
+    ...input,
+    createdAt: FieldValue.serverTimestamp(),
+  })
 
   return docRef.id
 }

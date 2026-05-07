@@ -5,9 +5,9 @@ export interface InvoiceItem {
   itemAmount: number
 }
 
+/** 電子發票（存於 users/{userId}/invoices 子集合，userId 由路徑承載） */
 export interface Invoice {
   id: string
-  userId: string
   invoiceNo: string
   invoiceDate: string
   amount: number
@@ -22,4 +22,4 @@ export interface Invoice {
   createdAt: string
 }
 
-export type CreateInvoiceInput = Omit<Invoice, 'id' | 'userId' | 'createdAt'>
+export type CreateInvoiceInput = Omit<Invoice, 'id' | 'createdAt'>

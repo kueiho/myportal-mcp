@@ -93,8 +93,8 @@ export const handleDeleteStockTransaction = async (args: unknown) => {
   if (!parsed.success) return fail(parsed.error.issues.map(i => i.message).join('; '))
 
   try {
-    getUserId()
-    await deleteTransaction(parsed.data.id)
+    const userId = getUserId()
+    await deleteTransaction(userId, parsed.data.id)
     return ok({ id: parsed.data.id }, '交易紀錄刪除成功')
   } catch (err) {
     console.error('[ERROR] delete_stock_transaction failed:', err)
